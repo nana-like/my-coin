@@ -1,0 +1,18 @@
+@mixin blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  white-space: nowrap;
+  clip: rect(0, 0, 0, 0);
+}
+
+@mixin center {
+  width: 100%;
+  margin: 0 auto;
+  max-width: $g-max-width;
+  padding: 0 $g-inner-padding;
+}

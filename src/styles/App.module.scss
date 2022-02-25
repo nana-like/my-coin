@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-width: $g-min-width;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.4rem;
+}

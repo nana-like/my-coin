@@ -1,13 +1,13 @@
-import "@adorable.css"
-import Home from './views/Home';
+import '@adorable.css';
+import '@/styles/App.module.scss';
+import Router from '@/views/Router';
 
 function App() {
-
   return (
     <>
-      <Home/>
+      <Router />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
