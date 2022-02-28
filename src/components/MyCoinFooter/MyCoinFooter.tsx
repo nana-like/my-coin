@@ -11,7 +11,6 @@ function Footer() {
           <MyCoinLogo />
         </div>
         <p className="c(#999)">
-          Made by&nbsp;
           <a
             href="//nykim.work"
             target="_blank"
@@ -20,8 +19,17 @@ function Footer() {
           >
             Nana
           </a>
-          &nbsp;with&nbsp;
-          <i className="font-size(90%)">💙</i>
+          <i className="font-size(90%)">&nbsp;with&nbsp;</i>
+          <a
+            href="//nomadcoders.co/react-masterclass"
+            target="_blank"
+            rel="noopener"
+            className="hover:text-decoration(underline)"
+          >
+            NomadCoders
+          </a>
+          &nbsp;
+          <i>💙</i>
         </p>
       </div>
     </footer>

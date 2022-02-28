@@ -2,55 +2,88 @@ import Header from '@/components/MyCoinHeader/MyCoinHeader';
 import Footer from '@/components/MyCoinFooter/MyCoinFooter';
 import classNames from 'classnames/bind';
 import style from './Detail.module.scss';
-import { Link, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchCoinDetail } from '@/utils/api';
+import { useQuery } from 'react-query';
+import { CoinProps } from '@/components/MyCoinList/MyCoinList';
+import BackArrow from '@/assets/BackArrow';
 const cx = classNames.bind(style);
 
+interface DetailProps extends CoinProps {
+  rank: number;
+  hash_algorithm: string;
+  links: {
+    website: string;
+  };
+  description: string;
+}
+
 export default function Detail() {
-  console.log(useParams());
+  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as CoinProps;
+  const { data } = useQuery<DetailProps>(
+    ['CoinDetail', state.id],
+    () => fetchCoinDetail(state.id),
+    {
+      refetchInterval: 5000
+    }
+  );
+
   return (
     <div className={cx('detail')}>
       <Header />
       <div className={cx('inner')}>
-        <Link className={cx('back')} to="/" aria-label="Go Back">
-          {/* 클릭한 위치지점으로 백할 수 있을까?? */}
-        </Link>
+        <a
+          href="/"
+          aria-label="Go Back"
+          className={cx('back')}
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(-1);
+          }}
+        >
+          <BackArrow />
+        </a>
         <div className={cx('head')}>
           <div>
-            <h2>BitCoin</h2>
-            <p>12345.11 USD</p>
+            <h2>{state?.name}</h2>
+            <p>{state?.price.toFixed(3)} USD</p>
           </div>
-          <img src="asd.png" alt="" />
+          <img
+            src={`https://cryptoicon-api.vercel.app/api/icon/${state?.symbol.toLowerCase()}`}
+            alt={state?.name}
+          />
         </div>
         <div className={cx('body')}>
           <ul>
             <li>
-              <strong>RANK</strong>
-              <span>1</span>
+              <strong>Rank</strong>
+              <span>#{data?.rank}</span>
             </li>
             <li>
-              <strong>SYMBOL</strong>
-              <span>$BTC</span>
+              <strong>Symbol</strong>
+              <span>{state?.symbol}</span>
             </li>
             <li>
-              <strong>ABCDE</strong>
-              <span>123123</span>
+              <strong>Algorithm</strong>
+              <span>
+                {data?.hash_algorithm !== 'None' &&
+                data?.hash_algorithm !== null
+                  ? data?.hash_algorithm
+                  : '-'}
+              </span>
             </li>
             <li>
-              <strong>ABCDE</strong>
-              <span>123123</span>
-            </li>
-            <li>
-              <strong>ABCDE</strong>
-              <span>123123</span>
+              <strong>Website</strong>
+              <span>
+                <a href={data?.links.website[0]} target="_blank" rel="noopener">
+                  {data?.links.website[0]}
+                </a>
+              </span>
             </li>
           </ul>
-          <p className={cx('desc')}>
-            Incididunt enim in irure eiusmod exercitation elit esse est.
-            Occaecat anim amet ex incididunt ullamco irure ad est aliqua ex
-            Lorem. Voluptate sunt magna ex est adipisicing tempor dolore aliqua
-            officia esse. Cupidatat enim officia veniam proident incididunt
-            voluptate labore culpa sint magna nulla commodo officia.
-          </p>
+          <p className={cx('desc')}>{data?.description}</p>
         </div>
         <button className={cx('seeChart')}>Chart</button>
       </div>

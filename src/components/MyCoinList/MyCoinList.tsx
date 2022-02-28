@@ -5,7 +5,8 @@ import classNames from 'classnames/bind';
 import { CoinsProps } from '@/views/Home/Home';
 const cx = classNames.bind(style);
 
-interface CoinProps {
+export interface CoinProps {
+  id: string;
   name: string;
   price: number;
   symbol: string;
@@ -16,10 +17,14 @@ interface CoinListProps {
   loadMore?: boolean;
 }
 
-function CoinListItem({ name, price, symbol }: CoinProps) {
+function CoinListItem({ id, name, price, symbol }: CoinProps) {
   return (
     <li>
-      <Link to="/:coinId" className="hbox justify-content(space-between)">
+      <Link
+        to={`/${id}`}
+        state={{ id, name, price, symbol }}
+        className="hbox justify-content(space-between)"
+      >
         <div className="hbox">
           <img
             src={`https://cryptoicon-api.vercel.app/api/icon/${symbol.toLowerCase()}`}
@@ -27,7 +32,7 @@ function CoinListItem({ name, price, symbol }: CoinProps) {
           />
           <div className="m(0/0/0/1.6rem)">
             <p className={cx('coinName')}>{name}</p>
-            <p className={cx('coinValue')}>{price.toFixed(3)} USD</p>
+            <p className={cx('coinPrice')}>{price.toFixed(3)} USD</p>
           </div>
         </div>
         <div className={cx('rightArrow')}>
@@ -49,6 +54,7 @@ function CoinList({ title, list = [], loadMore = false }: CoinListProps) {
             return (
               <CoinListItem
                 key={coin.id}
+                id={coin.id}
                 name={coin.name}
                 symbol={coin.symbol}
                 price={coin.quotes.USD.price}

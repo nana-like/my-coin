@@ -27,7 +27,9 @@ function Home() {
     };
   }, []);
 
-  const { data } = useQuery<CoinsProps[]>('allTickers', fetchTickers);
+  const { data } = useQuery<CoinsProps[]>('allTickers', fetchTickers, {
+    refetchInterval: 5000
+  });
 
   return (
     <div className={cx('home')}>
