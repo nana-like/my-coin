@@ -9,6 +9,7 @@ const cx = classNames.bind(style);
 export interface CoinsProps {
   id: string;
   name: string;
+  symbol: string;
   quotes: {
     USD: {
       price: number;
@@ -17,7 +18,8 @@ export interface CoinsProps {
 }
 
 function Home() {
-  const [coins, setCoins] = useState([]);
+  const [topCoins, setTopCoins] = useState<CoinsProps[]>([]);
+  const [coins, setCoins] = useState<CoinsProps[]>([]);
 
   useEffect(() => {
     document.body.classList.add('hasGrayBg');
@@ -30,7 +32,9 @@ function Home() {
     (async () => {
       const response = await fetch('https://api.coinpaprika.com/v1/tickers');
       const json = await response.json();
-      setCoins(json.slice(0, 5));
+      console.log(json);
+      setTopCoins(json.slice(0, 5));
+      setCoins(json.slice(5, 20));
     })();
   }, []);
 
@@ -38,15 +42,8 @@ function Home() {
     <div className={cx('home')}>
       <Header />
       <div className={cx('inner')}>
-        <article className={cx('article')}>
-          <div className={cx('box')}>
-            <h2 className={cx('title')}>Top Coins</h2>
-            <CoinList list={coins} />
-            <div className={cx('loadMore')}>
-              <button>더 불러오기</button>
-            </div>
-          </div>
-        </article>
+        <CoinList title="Top Coins" list={topCoins} />
+        <CoinList title="Coins" list={coins} loadMore />
       </div>
       <Footer />
     </div>
