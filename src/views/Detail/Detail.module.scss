@@ -1,0 +1,82 @@
+.detail {
+  .inner {
+    @include center;
+    padding-top: 3rem;
+    padding-bottom: 6rem;
+  }
+
+  .back {
+    display: block;
+    width: 3.4rem;
+    height: 3.4rem;
+    outline: 0.2rem solid red;
+
+    & + .head {
+      margin-top: 2rem;
+    }
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01rem;
+
+  .coinTitle {
+    font-size: 1.7rem;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 2.2rem;
+    font-weight: bold;
+    line-height: 1.4;
+  }
+
+  img {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    background-color: #fafafa;
+    border-radius: 1rem;
+  }
+}
+
+.body {
+  font-size: 1.3rem;
+  li {
+    display: flex;
+    margin: 0.4rem 0;
+  }
+
+  strong {
+    display: block;
+    font-weight: bold;
+    // outline: 1px solid black;
+    width: 7rem;
+  }
+
+  span {
+    display: block;
+    margin-left: 0.8rem;
+  }
+
+  .desc {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    color: #333;
+  }
+}
+
+.seeChart {
+  display: block;
+  width: 100%;
+  height: 3.6rem;
+  color: #555;
+  border: 0.1rem solid #bbb;
+  border-radius: 0.4rem;
+}

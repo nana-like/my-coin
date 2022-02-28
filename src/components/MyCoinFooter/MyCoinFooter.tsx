@@ -21,7 +21,7 @@ function Footer() {
             Nana
           </a>
           &nbsp;with&nbsp;
-          <i className="font-size(90%)">💛</i>
+          <i className="font-size(90%)">💙</i>
         </p>
       </div>
     </footer>

@@ -1,0 +1,43 @@
+.list {
+}
+
+.listItem {
+  &:not(:first-child) {
+    margin-top: 2.5rem;
+  }
+
+  a:hover p {
+    color: $c-primary;
+    transition: color 250ms;
+  }
+
+  img {
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 0.4rem;
+  }
+
+  .coinName {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: #444;
+    letter-spacing: -0.02rem;
+  }
+
+  .coinValue {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .rightArrow {
+    margin-right: 1rem;
+    width: 0.6rem;
+    height: 1rem;
+
+    i {
+      @include blind;
+    }
+  }
+}
