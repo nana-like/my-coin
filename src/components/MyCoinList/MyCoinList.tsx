@@ -2,31 +2,18 @@ import { Link } from 'react-router-dom';
 import RightArrow from '@/assets/RightArrow';
 import style from './MyCoinList.module.scss';
 import classNames from 'classnames/bind';
+import { CoinsProps } from '@/views/Home/Home';
 const cx = classNames.bind(style);
 
-const tempCoinList = [
-  {
-    name: 'Bitcoin'
-  },
-  {
-    name: 'Ethereum'
-  },
-  {
-    name: 'c'
-  },
-  {
-    name: 'd'
-  },
-  {
-    name: 'e'
-  }
-];
-
-interface ICoin {
+interface CoinProps {
   name: string;
+  price: number;
+}
+interface CoinListProps {
+  list: CoinsProps[];
 }
 
-function CoinListItem({ name }: ICoin) {
+function CoinListItem({ name, price }: CoinProps) {
   return (
     <li className={cx('listItem')}>
       <Link to="/:coinId" className="hbox justify-content(space-between)">
@@ -34,7 +21,7 @@ function CoinListItem({ name }: ICoin) {
           <img src="" alt="" />
           <div className="m(0/0/0/1.6rem)">
             <p className={cx('coinName')}>{name}</p>
-            <p className={cx('coinValue')}>34334.1 USD</p>
+            <p className={cx('coinValue')}>{price} USD</p>
           </div>
         </div>
         <div className={cx('rightArrow')}>
@@ -46,12 +33,18 @@ function CoinListItem({ name }: ICoin) {
   );
 }
 
-function CoinList() {
+function CoinList({ list = [] }: CoinListProps) {
   return (
     <ul className={cx('list')}>
-      {tempCoinList.map((coin, i) => (
-        <CoinListItem name={coin.name} />
-      ))}
+      {list.map((coin) => {
+        return (
+          <CoinListItem
+            key={coin.id}
+            name={coin.name}
+            price={coin.quotes.USD.price}
+          />
+        );
+      })}
     </ul>
   );
 }

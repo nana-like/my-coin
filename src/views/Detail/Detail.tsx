@@ -2,10 +2,11 @@ import Header from '@/components/MyCoinHeader/MyCoinHeader';
 import Footer from '@/components/MyCoinFooter/MyCoinFooter';
 import classNames from 'classnames/bind';
 import style from './Detail.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 const cx = classNames.bind(style);
 
 export default function Detail() {
+  console.log(useParams());
   return (
     <div className={cx('detail')}>
       <Header />
