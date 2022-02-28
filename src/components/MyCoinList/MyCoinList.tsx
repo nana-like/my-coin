@@ -12,7 +12,7 @@ interface CoinProps {
 }
 interface CoinListProps {
   title: string;
-  list: CoinsProps[];
+  list: CoinsProps[] | undefined;
   loadMore?: boolean;
 }
 

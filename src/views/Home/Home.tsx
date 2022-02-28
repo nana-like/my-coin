@@ -4,6 +4,8 @@ import CoinList from '@/components/MyCoinList/MyCoinList';
 import classNames from 'classnames/bind';
 import style from './Home.module.scss';
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { fetchTickers } from '@/utils/api';
 const cx = classNames.bind(style);
 
 export interface CoinsProps {
@@ -18,9 +20,6 @@ export interface CoinsProps {
 }
 
 function Home() {
-  const [topCoins, setTopCoins] = useState<CoinsProps[]>([]);
-  const [coins, setCoins] = useState<CoinsProps[]>([]);
-
   useEffect(() => {
     document.body.classList.add('hasGrayBg');
     return () => {
@@ -28,22 +27,14 @@ function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch('https://api.coinpaprika.com/v1/tickers');
-      const json = await response.json();
-      console.log(json);
-      setTopCoins(json.slice(0, 5));
-      setCoins(json.slice(5, 20));
-    })();
-  }, []);
+  const { data } = useQuery<CoinsProps[]>('allTickers', fetchTickers);
 
   return (
     <div className={cx('home')}>
       <Header />
       <div className={cx('inner')}>
-        <CoinList title="Top Coins" list={topCoins} />
-        <CoinList title="Coins" list={coins} loadMore />
+        <CoinList title="Top Coins" list={data?.slice(0, 5)} />
+        <CoinList title="Coins" list={data?.slice(5, 20)} loadMore />
       </div>
       <Footer />
     </div>
