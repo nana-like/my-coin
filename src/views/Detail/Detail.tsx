@@ -41,10 +41,6 @@ export default function Detail() {
     }
   );
 
-  if (!state) {
-    console.log('음,,, 코인 프라이스가 필요해!');
-  }
-
   return (
     <div className={cx('detail')}>
       <Header />

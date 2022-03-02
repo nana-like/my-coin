@@ -1,10 +1,10 @@
+import { useLayoutEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Home from '@/views/Home/Home';
-import ChartView from '@/views/ChartView/ChartView';
 import Detail from '@/views/Detail/Detail';
-import { useLayoutEffect } from 'react';
 
 const ScrollToTop = ({ children }: any) => {
+  //TODO: 코드 동작 원리 파헤쳐보기, children 타입 알아보기
   const location = useLocation();
   useLayoutEffect(() => {
     document.documentElement.scrollTo(0, 0);
@@ -22,7 +22,6 @@ function Router() {
       </ScrollToTop>
       <Routes>
         <Route path="/:coinId" element={<Detail />} />
-        <Route path="/chart" element={<ChartView />} />
       </Routes>
     </BrowserRouter>
   );

@@ -62,9 +62,6 @@ function CoinList({ title, list = [], loadMore = false }: CoinListProps) {
             );
           })}
         </ul>
-        {loadMore ? (
-          <button className={cx('loadMore')}>Load More</button>
-        ) : null}
       </div>
     </article>
   );

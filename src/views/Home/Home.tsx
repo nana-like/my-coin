@@ -36,7 +36,7 @@ export default function Home() {
       <Header />
       <div className={cx('inner')}>
         <CoinList title="Top Coins" list={data?.slice(0, 5)} />
-        <CoinList title="Coins" list={data?.slice(5, 20)} loadMore />
+        <CoinList title="Coins" list={data?.slice(5, 30)} />
       </div>
       <Footer />
     </div>

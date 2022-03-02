@@ -12,16 +12,16 @@ function Header() {
           <h1>MyCoin</h1>
           <MyCoinLogo />
         </Link>
-        <div className="hbox h(100%)">
-          {/* <nav className={cx('navi')}>
+        {/* <div className="hbox h(100%)">
+          <nav className={cx('navi')}>
             <Link to="/">Home</Link>
             <Link to="/chart">Chart</Link>
-          </nav> */}
+          </nav>
           <button
             className={cx('toggle')}
             aria-label="Turn to Dark Theme"
           ></button>
-        </div>
+        </div> */}
       </div>
     </header>
   );
