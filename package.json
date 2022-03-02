@@ -1,5 +1,5 @@
 {
-  "name": "my-coin",
+  "name": "react-my-coin",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -28,5 +28,6 @@
     "prettier": "2.5.1",
     "typescript": "^4.5.4",
     "vite": "^2.8.0"
-  }
+  },
+  "homepage": "https://nana-like.github.io/react-my-coin"
 }
