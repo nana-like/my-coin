@@ -33,7 +33,7 @@ export default function Detail() {
     }
   );
 
-  const { data: coinPrice } = useQuery<CoinsProps[]>(
+  const { data: coinPrice } = useQuery<CoinsProps>(
     ['CoinPrice', coinId],
     () => fetchCoinTickers(coinId),
     {

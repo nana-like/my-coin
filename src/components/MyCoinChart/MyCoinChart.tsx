@@ -26,7 +26,6 @@ export default function Chart() {
   return (
     <>
       <ApexChart
-        className={cx('chart')}
         type="candlestick"
         series={[
           {
@@ -63,7 +62,7 @@ export default function Chart() {
               style: {
                 fontFamily: 'Open Sans'
               },
-              formatter: function (val) {
+              formatter: function (val: any) {
                 return dayjs(val).format('MM/DD');
               }
             }
