@@ -18,9 +18,9 @@ export async function fetchCoinHistory(coinId: string | undefined) {
   ).json();
 }
 
-// export async function fetchCoinTickers(coinId: string) {
-//   return await (await fetch(`${BASE_URL}/tickers/${coinId}`)).json();
-// }
+export async function fetchCoinTickers(coinId: string | undefined) {
+  return await (await fetch(`${BASE_URL}/tickers/${coinId}`)).json();
+}
 
 // export async function fetchAllCoinTickers() {
 //   return await (await fetch(`${BASE_URL}/tickers`)).json();

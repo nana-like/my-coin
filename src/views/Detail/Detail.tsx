@@ -2,10 +2,11 @@ import Header from '@/components/MyCoinHeader/MyCoinHeader';
 import Footer from '@/components/MyCoinFooter/MyCoinFooter';
 import classNames from 'classnames/bind';
 import style from './Detail.module.scss';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { fetchCoinDetail } from '@/utils/api';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { fetchCoinDetail, fetchCoinTickers } from '@/utils/api';
 import { useQuery } from 'react-query';
 import { CoinProps } from '@/components/MyCoinList/MyCoinList';
+import { CoinsProps } from '../Home/Home';
 import BackArrow from '@/assets/BackArrow';
 import MyCoinChart from '@/components/MyCoinChart/MyCoinChart';
 const cx = classNames.bind(style);
@@ -23,13 +24,26 @@ export default function Detail() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as CoinProps;
-  const { data } = useQuery<DetailProps>(
-    ['CoinDetail', state.id],
-    () => fetchCoinDetail(state.id),
+  const { coinId } = useParams();
+  const { data: coinDetail } = useQuery<DetailProps>(
+    ['CoinDetail', coinId],
+    () => fetchCoinDetail(coinId),
     {
       refetchInterval: 10000
     }
   );
+
+  const { data: coinPrice } = useQuery<CoinsProps[]>(
+    ['CoinPrice', coinId],
+    () => fetchCoinTickers(coinId),
+    {
+      refetchInterval: 10000
+    }
+  );
+
+  if (!state) {
+    console.log('음,,, 코인 프라이스가 필요해!');
+  }
 
   return (
     <div className={cx('detail')}>
@@ -48,11 +62,17 @@ export default function Detail() {
         </a>
         <div className={cx('head')}>
           <div>
-            <h2>{state?.name}</h2>
-            <p>{state?.price.toFixed(3)} USD</p>
+            <h2>{state?.name || coinDetail?.name}</h2>
+            <p>
+              {state?.price.toFixed(3) ||
+                coinPrice?.quotes.USD.price.toFixed(3)}{' '}
+              USD
+            </p>
           </div>
           <img
-            src={`https://cryptoicon-api.vercel.app/api/icon/${state?.symbol.toLowerCase()}`}
+            src={`https://cryptoicon-api.vercel.app/api/icon/${
+              state?.symbol.toLowerCase() || coinDetail?.symbol.toLowerCase()
+            }`}
             alt={state?.name}
           />
         </div>
@@ -60,34 +80,37 @@ export default function Detail() {
           <ul>
             <li>
               <strong>Rank</strong>
-              <span>#{data?.rank}</span>
+              <span>#{coinDetail?.rank}</span>
             </li>
             <li>
               <strong>Symbol</strong>
-              <span>{state?.symbol}</span>
+              <span>{state?.symbol || coinDetail?.symbol}</span>
             </li>
             <li>
               <strong>Algorithm</strong>
               <span>
-                {data?.hash_algorithm !== 'None' &&
-                data?.hash_algorithm !== null
-                  ? data?.hash_algorithm
+                {coinDetail?.hash_algorithm !== 'None' &&
+                coinDetail?.hash_algorithm !== null
+                  ? coinDetail?.hash_algorithm
                   : '-'}
               </span>
             </li>
             <li>
               <strong>Website</strong>
               <span>
-                <a href={data?.links.website[0]} target="_blank" rel="noopener">
-                  {data?.links.website[0]}
+                <a
+                  href={coinDetail?.links.website[0]}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {coinDetail?.links.website[0]}
                 </a>
               </span>
             </li>
           </ul>
-          <p className={cx('desc')}>{data?.description}</p>
+          <p className={cx('desc')}>{coinDetail?.description}</p>
         </div>
         <MyCoinChart />
-        <button className={cx('seeChart')}>Chart</button>
       </div>
       <Footer />
     </div>
