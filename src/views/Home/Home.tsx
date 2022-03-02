@@ -19,7 +19,7 @@ export interface CoinsProps {
   };
 }
 
-function Home() {
+export default function Home() {
   useEffect(() => {
     document.body.classList.add('hasGrayBg');
     return () => {
@@ -28,7 +28,7 @@ function Home() {
   }, []);
 
   const { data } = useQuery<CoinsProps[]>('allTickers', fetchTickers, {
-    refetchInterval: 5000
+    refetchInterval: 10000
   });
 
   return (
@@ -42,5 +42,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

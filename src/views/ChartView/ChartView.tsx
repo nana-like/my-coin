@@ -1,22 +1,21 @@
 import Header from '@/components/MyCoinHeader/MyCoinHeader';
 import Footer from '@/components/MyCoinFooter/MyCoinFooter';
 import classNames from 'classnames/bind';
-import style from './Chart.module.scss';
+import style from './ChartView.module.scss';
 import DropDown from '@/components/DropDown/DropDown';
+import Chart from '@/components/MyCoinChart/MyCoinChart';
 const cx = classNames.bind(style);
 
-function Chart() {
+export default function ChartView() {
   return (
     <div className={cx('chart')}>
       <Header />
       <div className={cx('inner')}>
         <h2>Chart</h2>
         <DropDown />
-        차아아아트!
+        <Chart />
       </div>
       <Footer />
     </div>
   );
 }
-
-export default Chart;

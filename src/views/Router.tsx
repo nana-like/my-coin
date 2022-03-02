@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from '@/views/Home/Home';
-import Chart from '@/views/Chart/Chart';
+import ChartView from '@/views/ChartView/ChartView';
 import Detail from '@/views/Detail/Detail';
 
 function Router() {
@@ -9,7 +9,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:coinId" element={<Detail />} />
-        <Route path="/chart" element={<Chart />} />
+        <Route path="/chart" element={<ChartView />} />
       </Routes>
     </BrowserRouter>
   );

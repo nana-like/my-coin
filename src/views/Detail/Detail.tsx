@@ -7,6 +7,7 @@ import { fetchCoinDetail } from '@/utils/api';
 import { useQuery } from 'react-query';
 import { CoinProps } from '@/components/MyCoinList/MyCoinList';
 import BackArrow from '@/assets/BackArrow';
+import MyCoinChart from '@/components/MyCoinChart/MyCoinChart';
 const cx = classNames.bind(style);
 
 interface DetailProps extends CoinProps {
@@ -26,7 +27,7 @@ export default function Detail() {
     ['CoinDetail', state.id],
     () => fetchCoinDetail(state.id),
     {
-      refetchInterval: 5000
+      refetchInterval: 10000
     }
   );
 
@@ -85,6 +86,7 @@ export default function Detail() {
           </ul>
           <p className={cx('desc')}>{data?.description}</p>
         </div>
+        <MyCoinChart />
         <button className={cx('seeChart')}>Chart</button>
       </div>
       <Footer />
