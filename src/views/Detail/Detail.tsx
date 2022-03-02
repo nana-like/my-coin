@@ -9,6 +9,7 @@ import { CoinProps } from '@/components/MyCoinList/MyCoinList';
 import { CoinsProps } from '../Home/Home';
 import BackArrow from '@/assets/BackArrow';
 import MyCoinChart from '@/components/MyCoinChart/MyCoinChart';
+import { Helmet } from 'react-helmet';
 const cx = classNames.bind(style);
 
 interface DetailProps extends CoinProps {
@@ -25,7 +26,7 @@ export default function Detail() {
   const location = useLocation();
   const state = location.state as CoinProps;
   const { coinId } = useParams();
-  const { data: coinDetail } = useQuery<DetailProps>(
+  const { isLoading, data: coinDetail } = useQuery<DetailProps>(
     ['CoinDetail', coinId],
     () => fetchCoinDetail(coinId),
     {
@@ -43,6 +44,15 @@ export default function Detail() {
 
   return (
     <div className={cx('detail')}>
+      <Helmet>
+        <title>
+          {state?.name
+            ? state.name
+            : isLoading
+            ? 'MY COIN'
+            : `${coinDetail?.name} :: MY COIN`}
+        </title>
+      </Helmet>
       <Header />
       <div className={cx('inner')}>
         <a
